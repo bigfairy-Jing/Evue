@@ -5,7 +5,10 @@ class Evue {
     this.$options = options;
     this.$data = options.data;
 
-    // 观察
+    // 代理methods
+    this.proxyMethods(this.$options.methods || {})
+
+    // 观察 重名以 data为主
     this.observer(this.$data);
 
     new Compiler(options.el, this);
@@ -57,6 +60,23 @@ class Evue {
         this.$data[key] = newVal;
       }
     });
+  }
+
+  proxyMethods(methods) {
+    const _this = this
+    Object.keys(methods).forEach(key => {
+
+      if (typeof methods[key] !== 'function') throw Error('method should be function!!');
+
+      Object.defineProperty(_this, key, {
+        get() {
+          return methods[key]
+        },
+        set() {
+          throw Error('Method cannot be set!!')
+        }
+      })
+    })
   }
 }
 
