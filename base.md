@@ -1,6 +1,6 @@
 #### 顺序 
 
-1. index.html
+1. index.html  + readme.md + dependUtil.js 
 
 2. chrome-view
 
