@@ -6,7 +6,7 @@
 
 class Compiler {
   constructor(el, vm) {
-    // console.log(document.querySelector(el),vm)
+
     this.$vm = vm;
 
     this.$el = document.querySelector(el);
@@ -50,7 +50,6 @@ class Compiler {
       console.log(attr.name, attr.value);
       if (this.isDirective(attrName)) {
         //  截取指令
-        console.log('走进来了吗');
         const dire = attrName.substring(2);
         console.log(attrName, dire);
         // 执行对应指令的更新函数

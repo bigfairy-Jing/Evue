@@ -1,64 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Evue-html</title>
-  </head>
-  <body>
-    <div id="app">
-      <p>{{name}}</p>
-      <p>{{age}}</p>
-      <p>
-        {{gender}}
-      </p>
-      <input type="text" e-model="name" />
-      <button @click="changeName">事件按钮</button>
-      <div e-html="html"></div>
-      <p e-text="eName"></p>
-    </div>
 
-    <script src="./dependUtil.js"></script>
-    <script src="./Compiler.js"></script>
-    <script src="./EasyVue.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Evue-html</title>
+</head>
 
-    <script>
-      const vm = new Evue({
-        el: '#app',
-        data: {
+<body>
+  <div id="app">
+    <p>{{name}}</p>
+    <p>{{age}}</p>
+    <p>
+      {{gender}}
+    </p>
+    <input type="text" e-model="name" />
+    <button @click="changeName">事件按钮</button>
+    <div e-html="html"></div>
+    <p e-text="eName"></p>
+  </div>
+
+  <script src="./dependUtil.js"></script>
+  <script src="./Watcher.js"></script>
+  <script src="./Compiler.js"></script>
+  <script src="./EasyVue.js"></script>
+
+  <script>
+    const vm = new Evue({
+      el: '#app',
+      data() {
+        return {
           name: '周杰伦',
           age: 40,
           gender: '男',
           html: '<br/><br/><button>这是e-html产生的按钮</button><br/><br/>',
           eName: `这是e-text`
-        },
-        created() {
-          this.initData()
-        },
-        methods: {
-          async initData(){
-            const res = await new Promise((reslove)=>{
-              setTimeout(()=>{
-                reslove({
-                  name:'林俊杰',
-                  age: 39,
-                  gender: '男'
-                })
-              }, 1500)
-            })
-            this.name = res.name
-            this.age = res.age
-            this.gender = res.gender
-          },
-          changeName() {
-            console.log(this, '------->');
-            this.name = '刘亦菲';
-            this.age = 32;
-            this.gender = '女';
-          },
         }
-      });
-    </script>
-  </body>
+      },
+      created() {
+        this.initData()
+      },
+      methods: {
+        async initData() {
+          const res = await new Promise((reslove) => {
+            setTimeout(() => {
+              reslove({
+                name: '林俊杰',
+                age: 39,
+                gender: '男'
+              })
+            }, 1500)
+          })
+          this.name = res.name
+          this.age = res.age
+          this.gender = res.gender
+        },
+        changeName() {
+          console.log(this, '------->');
+          this.name = '刘亦菲';
+          this.age = 32;
+          this.gender = '女';
+        },
+      }
+    });
+  </script>
+</body>
+
 </html>

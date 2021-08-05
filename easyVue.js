@@ -3,7 +3,7 @@
 class Evue {
   constructor(options) {
     this.$options = options;
-    this.$data = options.data;
+    this.$data = options.data();
 
     // 代理methods
     this.proxyMethods(this.$options.methods || {})
@@ -14,7 +14,7 @@ class Evue {
     new Compiler(options.el, this);
 
     if (options.created) {
-      // 钩子函数
+      // 调用生命周期 钩子函数 created
       options.created.bind(this)();
     }
   }
@@ -107,7 +107,7 @@ class Watcher {
     // 把Dep类的target属性 = watcher的实例
     Dep.target = this;
 
-    this.vm[this.key]; // 出发依赖收集
+    this.vm[this.key]; // 触发依赖收集 就是触发第41行代码
     // 制空
     Dep.target = null;
   }
