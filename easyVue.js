@@ -5,28 +5,28 @@ class Evue {
     this.$options = options;
     this.$data = options.data();
 
-    // 代理methods
+    // ①代理methods
     this.proxyMethods(this.$options.methods || {})
 
-    // 观察 重名以 data为主
+    // ③观察 以及代理data
     this.observer(this.$data);
 
-    new Compiler(options.el, this);
-
+    // ②调用生命周期 钩子函数 created
     if (options.created) {
-      // 调用生命周期 钩子函数 created
       options.created.bind(this)();
     }
+    // ④调用Compiler
+    new Compiler(options.el, this);
   }
   observer(data) {
     if (!data || typeof data !== 'object') return;
     // 遍历 ergodic
     Object.keys(data).forEach(key => {
-      // 递归 防止obj
+      // ①递归 防止obj
       this.observer(data[key]);
-      // 响应化数据处理
+      // ③响应化数据处理
       this.defineReactive(data, key, data[key]);
-      // 代理  this.test 可以直接访问 this.$data.test
+      // ②代理  this.test 可以直接访问 this.$data.test
       this.proxyData(key);
     });
   }
