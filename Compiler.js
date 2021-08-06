@@ -21,7 +21,7 @@ class Compiler {
     console.log(childNodes, 'el的子节点');
     Array.from(childNodes).forEach(node => {
       // 判断节点类型
-      // dome元素
+      // dom 元素
       if (this.isElement(node)) {
         // console.log("编译元素",node.nodeName);
         this.compileElement(node);
@@ -37,8 +37,6 @@ class Compiler {
   compilerText(node) {
     // 编译插值文本
     this.update(node, RegExp.$1, 'text');
-    //  console.log(this.$vm[RegExp.$1])
-    //  node.textContent =  this.$vm[RegExp.$1]
   }
 
   compileElement(node) {
@@ -47,7 +45,6 @@ class Compiler {
     Array.from(nodeAttr).forEach(attr => {
       const attrName = attr.name;
       const attrValue = attr.value;
-      console.log(attr.name, attr.value);
       if (this.isDirective(attrName)) {
         //  截取指令
         const dire = attrName.substring(2);
@@ -65,11 +62,10 @@ class Compiler {
 
   update(node, exp, dire) {
     // 初始化页面
-    console.log('走了哪些啊', node, exp, dire);
     const updateFn = this[`${dire}Updater`];
 
     updateFn && updateFn(node, this.$vm[exp]);
-    // console.log(Watcher)
+
     // 更新
     new Watcher(this.$vm, exp, function(value) {
       updateFn && updateFn(node, value);
