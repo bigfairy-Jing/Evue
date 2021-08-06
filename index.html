@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Evue-html</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body{
+      padding: 20px;
+    }
+  </style>
 </head>
 
 <body>
@@ -16,7 +22,7 @@
       {{gender}}
     </p>
     <input type="text" e-model="name" />
-    <button @click="changeName">事件按钮</button>
+    <button @click="handleChangeName">事件按钮</button>
     <div e-html="html"></div>
     <p e-text="eName"></p>
   </div>
@@ -56,8 +62,7 @@
           this.age = res.age
           this.gender = res.gender
         },
-        changeName() {
-          console.log(this, '------->');
+        handleChangeName() {
           this.name = '刘亦菲';
           this.age = 32;
           this.gender = '女';
